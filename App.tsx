@@ -13,6 +13,7 @@ function App(): JSX.Element {
 
 	const backgroundStyle = {
 		backgroundColor: isDarkMode ? Colors.darker : 'white',
+		flex: 1,
 	};
 
 	return (

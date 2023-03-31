@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {
 	View,
 	Text,
@@ -9,24 +10,44 @@ import {
 	KeyboardAvoidingView,
 	Platform,
 	ScrollView,
+	ToastAndroid,
 } from 'react-native';
+import {StatusIndicator} from '../../components/ActivityIndicator';
 import OutlinedTextField from '../../components/OutlinedTextField';
 import PasswordInput from '../../components/PasswordField';
+import {loginPlant} from '../../helper/database';
+import {Plant} from '../../helper/models';
+import {useCredentialsStore} from '../../store/main';
 
 const LoginPage = () => {
+	const plantID = useCredentialsStore(state => state.plantID);
+	const setPlantID = useCredentialsStore(state => state.setPlantID);
+	const password = useCredentialsStore(state => state.password);
+	const setPassword = useCredentialsStore(state => state.setPassword);
+
+	const [loading, setLoading] = useState(false);
+
 	const handlePress = () => {
 		Keyboard.dismiss();
 	};
 
 	return (
-		<View style={{margin: 15, justifyContent: 'flex-start'}}>
+		<View
+			style={{
+				margin: 0,
+				justifyContent: 'flex-start',
+				flex: 1,
+				padding: 15,
+			}}>
+			{loading && <StatusIndicator message="Loading..." />}
+
 			<KeyboardAvoidingView
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 				style={styles.form_container}>
 				<ScrollView>
 					<Image
 						style={styles.logo}
-						source={require('../../../assets/logo.png')}
+						source={require('../../../assets/warehouse_illustration.png')}
 					/>
 					<Text style={styles.heading}>AgriTech Partner</Text>
 					<Text style={styles.subheading}>Partner Login</Text>
@@ -35,18 +56,38 @@ const LoginPage = () => {
 							<OutlinedTextField
 								label="Login ID"
 								placeholder="Enter plant ID"
-								onChangeText={(text: string) => {}}
+								onChangeText={id => setPlantID(id)}
 							/>
 							<PasswordInput
 								label="Password"
 								placeholder="Enter password"
-								onChangeText={() => {}}
+								onChangeText={password => {
+									setPassword(password);
+								}}
 							/>
 							<Text style={{textAlign: 'right', marginBottom: 8}}>
 								Forgot Password?
 							</Text>
 							<TouchableOpacity
 								style={styles.button}
+								disabled={loading}
+								onPress={async () => {
+									setLoading(true);
+									const plant: {
+										loginStatus: boolean;
+										error?: string;
+										plant?: Plant;
+									} = await loginPlant(plantID, password);
+
+									if (!plant.loginStatus) {
+										ToastAndroid.show(
+											plant.error!!,
+											ToastAndroid.LONG,
+										);
+									}
+									// handle navigation to home page & sharedPref
+									setLoading(false);
+								}}
 								activeOpacity={0.6}>
 								<Text style={styles.buttonText}>Continue</Text>
 							</TouchableOpacity>
@@ -89,6 +130,17 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		textAlign: 'center',
 		fontWeight: 'bold',
+	},
+	indicatorContainer: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: 'rgba(0, 0, 0, 0.5)',
+	},
+	message: {
+		marginTop: 16,
+		fontSize: 16,
+		color: '#ffffff',
 	},
 });
 

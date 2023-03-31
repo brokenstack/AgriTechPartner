@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "10320868701",
+    "project_id": "agritech-flutter-app",
+    "storage_bucket": "agritech-flutter-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10320868701:android:62fc60461a920bc1c1e4b4",
+        "android_client_info": {
+          "package_name": "com.agritech.agritech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10320868701-l5ucaabqnc8khd27956tbrj6j0cljnjn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXn7M8Z9pvcg5MysGDu4npOB8sRInEm-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "10320868701-l5ucaabqnc8khd27956tbrj6j0cljnjn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "10320868701-dnuvtlpc56d9ent84rs2qrafoolijmbf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.agritech.agritech"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10320868701:android:12e419908f5225ecc1e4b4",
+        "android_client_info": {
+          "package_name": "com.agritechpartner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10320868701-l5ucaabqnc8khd27956tbrj6j0cljnjn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXn7M8Z9pvcg5MysGDu4npOB8sRInEm-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "10320868701-l5ucaabqnc8khd27956tbrj6j0cljnjn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "10320868701-dnuvtlpc56d9ent84rs2qrafoolijmbf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.agritech.agritech"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
