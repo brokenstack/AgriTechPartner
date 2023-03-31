@@ -11,9 +11,6 @@ export const loginPlant = async (
 		.where('password', '==', password)
 		.get();
 
-	querySnapshot.docs.forEach(doc => {
-		console.log(doc.data());
-	});
 	if (querySnapshot.docs.length > 1) {
 		return {loginStatus: false, error: 'Something went wrong!'};
 	} else if (querySnapshot.docs.length == 0) {

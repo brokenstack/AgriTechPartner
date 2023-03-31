@@ -1,4 +1,9 @@
-import {useState} from 'react';
+import {
+	NativeStackNavigationProp,
+	NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+import React, {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
 	View,
 	Text,
@@ -12,6 +17,7 @@ import {
 	ScrollView,
 	ToastAndroid,
 } from 'react-native';
+import {RootStackParamList} from '../../../App';
 import {StatusIndicator} from '../../components/ActivityIndicator';
 import OutlinedTextField from '../../components/OutlinedTextField';
 import PasswordInput from '../../components/PasswordField';
@@ -19,7 +25,11 @@ import {loginPlant} from '../../helper/database';
 import {Plant} from '../../helper/models';
 import {useCredentialsStore} from '../../store/main';
 
-const LoginPage = () => {
+type LoginPageProps = {
+	navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
+};
+
+const LoginPage: React.FC<LoginPageProps> = ({navigation}) => {
 	const plantID = useCredentialsStore(state => state.plantID);
 	const setPlantID = useCredentialsStore(state => state.setPlantID);
 	const password = useCredentialsStore(state => state.password);
@@ -87,6 +97,13 @@ const LoginPage = () => {
 									}
 									// handle navigation to home page & sharedPref
 									setLoading(false);
+									if (plant.loginStatus) {
+										await AsyncStorage.setItem(
+											'LOGIN',
+											'true',
+										);
+										navigation.navigate('HomeScreen');
+									}
 								}}
 								activeOpacity={0.6}>
 								<Text style={styles.buttonText}>Continue</Text>
